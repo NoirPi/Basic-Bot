@@ -1,10 +1,12 @@
 import discord
 from discord.ext import commands
 
+from main import BasicBot
+
 
 class Commands(commands.Cog):
-    def __init__(self, bot: commands.Bot):
-        self.bot = bot
+    def __init__(self):
+        self.bot = BasicBot
 
     @commands.command(name="ping")
     async def _ping(self, ctx):
@@ -16,5 +18,5 @@ class Commands(commands.Cog):
             delete_after=10))
 
 
-def setup(bot: commands.Bot):
-    bot.add_cog(Commands(bot))
+def setup(bot):
+    bot.add_cog(Commands())
