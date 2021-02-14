@@ -1,22 +1,21 @@
 import discord
 from discord.ext import commands
 
-from main import BasicBot
-
 
 class Commands(commands.Cog):
-    def __init__(self):
-        self.bot = BasicBot
+    def __init__(self, bot):
+        self.bot = bot
 
-    @commands.command(name="ping")
-    async def _ping(self, ctx):
-        """Ping the Bot"""
-        calc = await ctx.send(embed=discord.Embed(description="Ping"))
-        clientping = (calc.created_at - ctx.message.created_at).total_seconds() * 1000
-        await calc.edit(embed=discord.Embed(
-            description=f"Bot Latency ``{round(self.bot.latency * 1000)}``\nClient Latency ``{clientping}``\n",
-            delete_after=10))
+    @commands.command()
+    async def ping(self, ctx):
+        """Checks the bot latency."""
+        calculation = await ctx.send('Pinging...')
+        clientping = (calculation.created_at - ctx.message.created_at).total_seconds() * 1000
+        
+        # editing the message to show the client latency and ping
+        await calc.edit(embed=discord.Embed(description=f'Bot Latency: ``{round(self.bot.latency * 1000)}``ms\n Client Latency: ``{clientping}``'))
 
 
 def setup(bot):
-    bot.add_cog(Commands())
+    """Load the Commands Cog"""
+    bot.add_cog(Commands(bot))
