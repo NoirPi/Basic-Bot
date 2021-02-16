@@ -8,15 +8,27 @@ from discord.ext import commands
 locale.setlocale(locale.LC_ALL, "en_US.utf8")
 start_time = time.time()
 
+MODULES = [
+    'commands',
+]
+
 
 class Bot(commands.AutoShardedBot):
     def __init__(self):
         super(Bot, self).__init__(
             command_prefix="!",
             case_insensitive=True, owner_id=[owner for owner in [1234567890]],
-            max_messages=5000)
+            max_messages=5000,
+            intents=discord.Intents.default())
 
-    @commands.Cog.listener()
+        for module in MODULES:
+            try:
+                self.load_extension(module)
+            except Exception as e:
+                print(f'{module} not loaded.')
+                print("_____________________")
+                print(e)
+
     async def on_ready(self):
         """Output after the Bot fully loaded"""
         end_time = time.time() - start_time
@@ -33,13 +45,6 @@ class Bot(commands.AutoShardedBot):
               f'# ------------------------------#')
 
 
-MODULES = [
-    'commands',
-]
-
 BasicBot = Bot()
-
-for module in MODULES:
-    BasicBot.load_extension(module)
 
 BasicBot.run("")
