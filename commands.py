@@ -1,5 +1,7 @@
-import discord
-from discord.ext import commands
+import twitchio
+from twitchio.ext import commands
+from datetime import datetime
+
 
 
 class Commands(commands.Cog):
@@ -9,11 +11,8 @@ class Commands(commands.Cog):
     @commands.command(name="ping")
     async def _ping(self, ctx):
         """Ping the Bot"""
-        calc = await ctx.send(embed=discord.Embed(description="Ping"))
-        clientping = (calc.created_at - ctx.message.created_at).total_seconds() * 1000
-        await calc.edit(embed=discord.Embed(
-            description=f"Bot Latency ``{round(self.bot.latency * 1000)}``\nClient Latency ``{clientping}``\n",
-            delete_after=10))
+        clientping = (datetime.now() - ctx.message.created_at).total_seconds() * 1000
+        calc = await ctx.send("Bot Latency ``{round(self.bot.latency * 1000)}``\nClient Latency ``{clientping}``\n")
 
 
 def setup(bot):
