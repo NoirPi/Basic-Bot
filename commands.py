@@ -1,7 +1,6 @@
-import twitchio
-from twitchio.ext import commands
 from datetime import datetime
 
+from twitchio.ext import commands
 
 
 class Commands(commands.Cog):

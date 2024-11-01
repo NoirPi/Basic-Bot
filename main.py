@@ -2,7 +2,6 @@ import locale
 import time
 
 import twitchio
-from twitchio import utils
 from twitchio.ext import commands
 
 locale.setlocale(locale.LC_ALL, "en_US.utf8")
